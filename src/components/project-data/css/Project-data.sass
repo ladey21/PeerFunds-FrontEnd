@@ -1,0 +1,124 @@
+@import "utils/scss/index"
+
+#Project-data_Main_Container
+  padding: 30px
+
+  .section-b
+    .details-card
+      padding: 20px
+      border-radius: .4rem
+      box-shadow: 0px 0px 8px 0px #f5f4ff
+
+      .title
+        font-weight: 600
+        font-size: 2rem
+
+      .status
+        background: #dc0b0b
+        padding: 4px 10px
+        color: #fff
+        font-weight: 600
+        font-size: 0.9rem
+        display: inline-block
+        border-radius: 0.2rem
+
+        &.active
+          background: rgb(39, 106, 227)
+
+      .flex
+        display: flex
+        align-items: center
+        justify-content: space-between
+        margin-bottom: 6px
+
+        h3
+          font-size: 1.2rem
+          font-weight: 600
+
+        p
+          font-size: 1.2rem
+
+      .con-action
+        background: #888
+        font-weight: 600
+        color: #fff
+        border-radius: .4rem
+        padding: 10px 20px
+        cursor: pointer
+
+        &.active
+          background: green
+
+    .con-applicant
+
+      .applicant-card
+        background: #ebebeb
+        padding: 12px 20px
+        border-radius: .4rem
+        margin-bottom: 10px
+
+        .con-left
+          display: flex
+          align-items: center
+          gap: 20px
+
+        .con-right
+          p
+            color: #fff
+            font-weight: 600
+            padding: 8px
+            background: rgb(0 106 164)
+            border-radius: .25rem
+
+        .con-img
+          $size: 60px
+          width: $size
+          height: $size
+          border-radius: 50%
+          overflow: hidden
+
+        .con-text
+          .name
+            font-weight: 600
+            font-size: 1.2rem
+          .title
+            // font-weight: 500
+            font-size: 1.2rem
+
+  .section-c
+    .header
+      font-size: 1.2rem
+      font-weight: 600
+      text-align: center
+      margin-bottom: 10px
+
+    .con-apply
+      padding: 20px
+      background: #d5d3d3
+      border-radius: 1rem
+
+      a .apply-card
+        display: flex
+        align-items: center
+        gap: 20px
+        padding: 16px 40px
+        border-radius: .5rem
+        background: #fff
+        margin-bottom: 10px
+
+        h3
+          font-weight: 600
+          font-size: 3rem
+          color: $primary-color
+          margin: 0
+
+        p
+          font-size: 1.2rem
+
+@media (min-width:992px)
+  #Project-data_Main_Container
+    padding: 20px 30px
+
+    .section-b
+      .details-card
+        padding: 40px

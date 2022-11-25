@@ -1,0 +1,64 @@
+@import variables
+
+.text-ash-color
+  color: rgb(126, 126, 126)
+  font-weight: 500
+
+.control-form
+  input
+    padding: 14px 20px
+    border-radius: 0.5rem
+
+  label
+    font-weight: 600
+
+  input:not(.form-submit)
+    background: $ash-color-01
+
+.control-check
+  .label, label
+    font-weight: 600
+
+.msg
+  background: rgb(230, 38, 38)
+  padding: 10px 20px
+  color: #fff
+  font-weight: 600
+
+.bold
+  font-size: 1.6rem
+  font-weight: 700
+  color: $primary-color
+
+.link, .link:hover
+  color: $primary-color
+
+.pointer
+  cursor: pointer
+
+.primary-btn
+  display: inline-block
+  font-weight: 500
+  font-size: .98rem
+  transition: 0.25s
+  color: #fff
+  padding: 10px 26px
+  border-radius: 0.5rem
+  background: $primary-color
+  cursor: pointer
+
+  &:hover
+    transform: scale(0.98)
+  &:disabled
+    opacity: .6
+
+.secondary-btn
+  @extend .primary-btn
+  background: #888
+
+.invalid-data
+  color: #f70c0c
+  font-size: .94rem
+
+.table tr td
+  white-space: nowrap

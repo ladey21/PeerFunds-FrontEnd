@@ -1,0 +1,105 @@
+@import "utils/scss/index"
+
+#Project-detail_Main_Container
+  padding: 50px 30px
+
+  h3
+    padding: 0
+    margin: 0
+
+  .con-section-a
+    .section-a
+      border: 1px solid #999
+      border-radius: .4rem
+      padding: 20px
+
+    .heading
+      font-size: 1.6rem
+      font-weight: 600
+
+    .status
+      background: rgb(39 106 227)
+      padding: 4px 10px
+      color: #fff
+      font-weight: 600
+      font-size: 0.9rem
+      display: inline-block
+      border-radius: 0.2rem
+
+    .con-job
+      i
+        color: green
+
+    .con-user
+      i
+        color: $primary-color
+      .user
+        font-size: 1rem
+        font-weight: 600
+        color: #535353
+
+    .type
+      display: inline-block
+      padding: 4px 8px
+      background: green
+      color: #fff
+      font-size: 0.8rem
+      font-weight: 600
+      border-radius: 0.25rem
+      cursor: pointer
+
+  .con-section-b
+    .section-b
+      .tag
+        background: #dfdfdf
+        border-radius: .5rem
+        padding: 30px 40px
+
+        h3
+          font-size: 1.2rem
+
+      .con-btn
+        button
+          padding: 10px 26px
+          border-radius: .25rem
+          font-weight: 600
+          color: #fff
+          transition: .25s
+          display: none
+
+          &.active
+            display: inline-block
+
+          &.first
+            background: #00cb06
+            cursor: default
+
+          &.second
+            background: $primary-color
+
+          &.third
+            background: #df0101
+
+          &:hover
+            transform: scale(.98)
+
+  .con-section-c
+    .section-c
+      .title
+        font-size: 1.2rem
+
+      .context
+        padding: 0 30px
+        
+        li
+          list-style-type: disc
+
+@media (min-width:992px)
+  #Project-detail_Main_Container
+    padding: 60px 40px
+
+    .con-section-a
+      .section-a
+        padding: 30px
+
+

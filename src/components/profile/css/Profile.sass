@@ -1,0 +1,123 @@
+@import "utils/scss/index"
+
+#Profile_Main_Container
+  .sections
+    padding: 30px
+
+  .section-title
+    font-weight: 600
+    font-size: 1.2rem
+
+  .con-header
+    background: rgb(255, 249, 226)
+
+    .user-img
+      $size: 120px
+      width: $size
+      height: $size
+      border-radius: 50%
+      border: 4px solid #fff
+      overflow: hidden
+
+    .username
+      font-size: 1.8rem
+      font-weight: 600
+
+    .user-type
+      display: inline-block
+      padding: 4px 8px
+      background: green
+      color: #fff
+      font-size: .8rem
+      font-weight: 600
+      border-radius: .25rem
+      cursor: pointer
+
+    .user-bio
+      max-width: 600px
+      width: 100%
+      padding: 16px 0
+      p
+        font-weight: 500
+
+    .con-rating
+      padding: 30px 16px
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 4px
+      background: #fff
+      border-radius: .5rem
+      display: inline-block
+      white-space: nowrap
+
+      .rating-text
+        font-weight: 500
+
+      .rating-icon
+        color: $secondary-color
+
+  .con-context
+
+    .content
+      h3
+        font-size: 1.2rem
+        color: $secondary-color
+
+      p
+        font-weight: 500
+
+  .con-review
+
+    $radius: .6rem
+    .context
+      background: rgb(239 239 239)
+      padding: 12px
+      border-radius: $radius
+      display: grid
+      gap: 20px
+
+      .review-cards
+        background: #fff
+        border-radius: $radius
+        padding: 12px 20px
+
+        .title
+          .user-image
+            $size: 60px
+            width: $size
+            height: $size
+            border-radius: 50%
+            overflow: hidden
+
+          .user-name
+            font-weight: 600
+
+          .user-detail
+            display: inline-block
+            border-radius: .25rem
+            padding: 2px 8px
+            font-size: .8rem
+            font-weight: 600
+            background: green
+            color: #fff
+
+        .body
+          p
+            font-size: .98rem
+            font-weight: 500
+
+@media (min-width:992px)
+  #Profile_Main_Container
+    .sections
+      padding: 40px
+
+    .con-header
+
+      .user-bio
+        padding: 0
+
+      .username
+        font-size: 2.2rem
+
+    .con-review
+      .context
+        padding: 20px
+        grid-template-columns: repeat(2, 1fr)

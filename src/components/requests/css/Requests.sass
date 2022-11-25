@@ -1,0 +1,49 @@
+@import "utils/scss/index"
+
+#Requests_Main_Container
+  padding: 50px 30px
+
+  .con-apply
+    .apply
+      display: flex
+      align-items: center
+      justify-content: space-between
+      border-radius: .4rem
+      padding: 20px 16px
+      background: #F2F2F2
+
+      .title
+        font-size: 1.4rem
+
+      .status
+        padding: 4px 8px
+        border-radius: .25rem
+        color: #fff
+        font-weight: 600
+
+        &.accepted
+          background: blue
+
+        &.pending
+          background: green
+        &.declined
+          background: grey
+
+  .con-header
+    h1
+      font-size: 2rem
+      font-weight: 600
+
+  .con-context
+    .context
+      display: grid
+      grid-template-columns: 1fr
+      gap: 20px
+
+@media (min-width:992px)
+  #Requests_Main_Container
+    padding: 60px 40px
+
+    .con-context
+      .context
+        grid-template-columns: repeat(3, 1fr)

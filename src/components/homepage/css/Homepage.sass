@@ -1,0 +1,209 @@
+$overlay-bg: #000000ad
+$section-a-height: 70vh
+$section-b-card-bg: #eaeaea
+$con-footer-bg: #333
+$blue-color: #471ec3
+
+#Homepage_Main_Container
+  position: relative
+
+  ul, h3
+    margin: 0
+
+  .con-centered
+    max-width: 1100px
+    width: 90%
+    margin: 0 auto
+
+  .sections
+    padding: 60px 0
+
+    .title
+      font-size: 2.6rem
+      font-weight: 600
+
+    .body
+      font-size: 1.4rem
+
+    .img
+      overflow: hidden
+      border-radius: 2rem
+      img
+        cursor: pointer
+        transition: .25s
+        &:hover
+          transform: scale(1.2)
+
+  .homepage-btn
+    display: inline-block
+    background: transparent
+    color: #333
+    padding: 14px 60px
+    border: 1px solid
+    transition: .25s
+    font-weight: 700
+    font-size: 1.2rem
+    cursor: pointer
+    &:hover
+      background: #333
+      color: #fff
+
+  .con-container
+    height: 100vh
+
+  .img-bg
+    @extend .con-container
+
+  .overlay
+    position: absolute
+    background: $overlay-bg
+    top: 0
+    height: 100vh
+    width: 100%
+
+  .con-wrapper
+    position: absolute
+    top: 0
+    height: 100vh
+    width: 100%
+    color: #fff
+
+    .con-navbar
+      padding: 20px 40px
+
+      .con-left
+        .logo
+
+      .con-right
+        li
+          a
+            font-size: 1.4rem
+            margin: 0 10px
+            padding: 12px 24px
+            border: 1px solid transparent
+            transition: .25s
+            &:hover
+              border: 1px solid #fff
+
+    .section-a
+      height: $section-a-height
+
+      .con-top
+        h2
+          font-size: 2.4rem
+          margin: 50px auto
+          width: 90%
+
+        .header-btn
+          background: transparent
+          padding: 14px 40px
+          border: 1px solid
+          transition: .25s
+          font-weight: 700
+          font-size: 1.2rem
+          &:hover
+            background: #fff
+            color: #333
+
+  .section-b
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: 80px 20px
+
+    .con-card
+      display: grid
+      grid-template-columns: 1fr
+      gap: 30px
+
+      .section-b-card
+        background: $section-b-card-bg
+        padding: 40px 30px
+        border-radius: 1rem
+        text-align: center
+        transition: .5s
+        cursor: pointer
+
+        &:hover
+          background: #000
+          color: #fff
+
+        i
+          font-size: 3rem
+          color: $blue-color
+
+        .title
+          font-weight: 600
+          font-size: 1.2rem
+
+  .section-d
+    .con-top
+      margin-bottom: 60px
+
+      .body
+        max-width: 740px
+        width: 90%
+        margin: 0 auto
+
+    .con-bottom
+      .section-d-card
+        border: 1px solid
+        padding: 40px 14px
+        transition: .5s
+        cursor: pointer
+        &:hover
+          border: 1px solid transparent
+          background: $blue-color
+          color: #fff
+          transform: translateY(-20px)
+          box-shadow: 0 4px 20px #979ec0
+
+        .title
+          font-size: 1.6rem
+          margin-bottom: 14px
+
+  .section-e
+    background: #d5d5d5
+    padding: 40px 30px
+
+    .title
+      font-size: 2rem
+      font-weight: 600
+
+    ul
+      padding: 40px 0
+      li
+        margin: 60px 0
+
+  .con-footer
+    background: $con-footer-bg
+    padding: 40px 30px
+    color: #fff
+    font-size: 1rem
+
+    li
+      margin-bottom: 12px
+
+@media (min-width:992px)
+  #Homepage_Main_Container
+    .section-b
+      padding: 80px
+
+      .con-card
+        grid-template-columns: repeat(3, 1fr)
+
+    .con-wrapper
+      .section-a
+        .con-top
+          h2
+            font-size: 3.6rem
+            margin-bottom: 50px
+            width: 1100px
+
+    .section-e
+      padding: 40px 60px
+
+      ul
+        li
+          width: 300px

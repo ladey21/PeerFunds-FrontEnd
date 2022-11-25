@@ -1,0 +1,62 @@
+@import "utils/scss/index"
+
+#Project-dashboard_Main_Container
+  padding: 40px 20px
+
+  .con-header
+    margin-bottom: 60px
+
+  .con-context
+    border-radius: .4rem
+
+    .table
+      &>:not(caption)>*>*
+        padding: 1rem
+
+      &>tbody>tr:nth-of-type(odd)
+        background: whitesmoke
+
+    table
+      margin: 0
+      border: 0
+      & > *
+        white-space: nowrap
+
+      tbody, td, tfoot, th, thead, tr
+        border: 0
+
+      thead
+        background: #fff
+        padding: 40px
+
+        .header-row
+          border: 1px solid #e3e3e3
+
+      tbody
+        tr
+          cursor: pointer
+          &:hover
+            background: #fff
+          .status
+            background: #d71313
+            padding: 4px 10px
+            color: #fff
+            font-weight: 800
+            font-size: .8rem
+            display: inline-block
+            border-radius: .2rem
+            &.active
+              background: #00a139
+
+@media (min-width: 992px)
+  #Project-dashboard_Main_Container
+    padding: 40px
+
+    .con-header
+      margin-bottom: 40px
+
+    .con-context
+      background: $dashboard-template-bg
+      padding: 20px
+
+      .table

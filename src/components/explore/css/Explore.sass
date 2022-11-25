@@ -1,0 +1,87 @@
+@import "utils/scss/index"
+
+#Explore_Main_Container
+  padding: 30px
+
+  .main-header
+    margin-bottom: 60px
+
+    .title
+      font-weight: 600
+      color: $dashboard-header-title-col
+
+    .con-search
+      border: 1px solid
+      border-radius: .5rem
+      width: 100%
+      overflow: hidden
+      color: #262626
+
+      $padding: 14px 20px
+
+      input
+        padding: $padding
+        outline: none
+        transition: .8s
+        &:focus
+          margin-left: 20px
+
+      i
+        padding: $padding
+
+  .main-context
+    .context
+      display: grid
+      grid-template-columns: 1fr
+      gap: 20px
+
+      .con-card
+        background: #d6efff
+        border-radius: .6rem
+        padding: 30px
+        transition: .2s
+        &:hover
+          color: #fff
+          background: #333
+
+        .header
+          .title
+            font-weight: 700
+            font-size: 1.4rem
+
+          .status
+            padding: 3px 14px
+            color: #fff
+            border-radius: .2rem
+            font-weight: 700
+            font-size: .9rem
+            background: $job-status-bg-closed
+            &.active
+              background: $job-status-bg-open
+
+        .body
+          .project-icon
+            color: rgb(65 143 245)
+
+          .project-name
+            font-size: 1rem
+            padding: 8px 0
+
+          .time
+            color: green
+            font-weight: 600
+
+@media (min-width:992px)
+  #Explore_Main_Container
+    padding: 40px 50px
+
+    .main-header
+      .con-search
+        width: 400px
+
+    .main-context
+      .context
+        grid-template-columns: repeat(2, 1fr)
+
+        .con-card
+          padding: 30px 40px

@@ -1,0 +1,21 @@
+@import "utils/scss/index"
+
+.primary_btn
+  display: inline-block
+  font-weight: 600
+  font-size: .8rem
+  letter-spacing: .8px
+  transition: 0.25s
+  color: #fff
+  padding: 12px 24px
+  border-radius: 0.25rem
+  background: $primary-color
+  cursor: pointer
+  white-space: nowrap
+
+  &:hover
+    transform: scale(0.98)
+
+.secondary_btn
+  @extend .primary_btn
+  background: #888
