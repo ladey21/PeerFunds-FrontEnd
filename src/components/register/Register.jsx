@@ -17,19 +17,14 @@ function Register() {
   const registerData = {
     firstName: "",
     lastName: "",
-    email: "",
-    gender: "",
+    emailAddress: "",
+    phoneNumber: "",
     password: "",
     password2: "",
-    userType: "",
-    jobType: "",
-    isContractor: false,
-    isWorker: false,
   };
 
   function onSubmit(values) {
-    if (values.isContractor) values.userType = "Contractor";
-    else values.userType = "Worker";
+    console.log(JSON.stringify(values, null, 2));
     service.doRegister(values).then(
       (res) => {
         formik.resetForm();
@@ -49,7 +44,7 @@ function Register() {
     <div className="container-register">
       <header className="mb-4">
         <h3 className="bold">
-          <Link to="/">BrickX.</Link>
+          <Link to="/">Peer2Fund</Link>
         </h3>
         <p className="text-ash-color">Create a new account</p>
       </header>
@@ -98,34 +93,29 @@ function Register() {
             id="email"
             placeholder="Enter Email"
             name="email"
-            value={formik.values.email}
+            value={formik.values.emailAddress}
             onChange={formik.handleChange}
           />
           <p className="invalid-data">
-            {formik.errors.email && formik.touched.email
-              ? formik.errors.email
+            {formik.errors.emailAddress && formik.touched.emailAddress
+              ? formik.errors.emailAddress
               : null}
           </p>
         </div>
 
-        <div className="control-form mb-3">
-          <label htmlFor="gender" className="form-label">
-            Gender
-          </label>
-          <select
-            className="form-select"
-            name="gender"
-            id="gender"
+        <div className="control-form mb-4">
+          <label htmlFor="phoneNumber">Phone Number:</label> <br />
+          <input
+            type="text"
+            id="phoneNumber"
+            placeholder="Enter phone number"
+            name="phoneNumber"
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
-            value={formik.values.gender}
-          >
-            <option defaultValue="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          />
           <p className="invalid-data">
-            {formik.errors.gender && formik.touched.gender
-              ? formik.errors.gender
+            {formik.errors.phoneNumber && formik.touched.phoneNumber
+              ? formik.errors.phoneNumber
               : null}
           </p>
         </div>
@@ -162,66 +152,6 @@ function Register() {
               ? formik.errors.password2
               : null}
           </p>
-        </div>
-
-        <div className="control-check">
-          <p className="label">User Type:</p>
-
-          <div className="my-3">
-            <div className="d-flex align-items-center gap-4 mb-2">
-              <div className="form-check form-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="user1"
-                  name="isContractor"
-                  value={formik.values.isContractor}
-                  onChange={formik.handleChange}
-                  disabled={formik.values.isWorker}
-                />
-                <label className="form-check-label" htmlFor="user1">
-                  Contractor
-                </label>
-              </div>
-
-              <div className="form-check form-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="user2"
-                  name="isWorker"
-                  value={formik.values.isWorker}
-                  onChange={formik.handleChange}
-                  disabled={formik.values.isContractor}
-                />
-                <label className="form-check-label" htmlFor="user2">
-                  Worker
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {formik.values.isWorker ? (
-            <>
-              <div className="control-form mb-4">
-                <label htmlFor="select-job" className="mb-3">
-                  Select Job title:
-                </label>
-                <br />
-                <select
-                  className="form-select"
-                  name="jobType"
-                  id="select-job"
-                  onChange={formik.handleChange}
-                  value={formik.values.jobType}
-                >
-                  <option defaultValue="">Select title</option>
-                  <option value="COST_MANAGER">Cost Manager</option>
-                  <option value="INSPECTOR">Inspector</option>
-                </select>
-              </div>
-            </>
-          ) : null}
         </div>
 
         <div className="control-form">

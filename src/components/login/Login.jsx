@@ -22,13 +22,14 @@ function Login({ authStatus }) {
   function submit(evt) {
     evt.preventDefault();
     validate(() => {
-      service.doLogin({ email, password }).then(
-        (res) => {
-          authStatus(res.accessToken);
-          navigate({ pathname: "/overview" });
-        },
-        (err) => service.handleLoginError(err, setMsg)
-      );
+      console.log(JSON.stringify({ email, password }, null, 2));
+      // service.doLogin({ email, password }).then(
+      //   (res) => {
+      //     authStatus(res.accessToken);
+      //     navigate({ pathname: "/overview" });
+      //   },
+      //   (err) => service.handleLoginError(err, setMsg)
+      // );
     });
   }
 
@@ -36,15 +37,12 @@ function Login({ authStatus }) {
     <div className="container-login d-flex flex-column flex-lg-row justify-content-center">
       <div className="d-none d-lg-block col-lg-7 position-relative">
         <div className="img">
-          <img
-            src="https://plus.unsplash.com/premium_photo-1663054710563-598f084bdd42?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1163&q=80"
-            alt=""
-          />
+          <img src="/images/img2.png" alt="" />
         </div>
         <div className="overlay"></div>
         <div className="con-context">
           <h2 className="logo">
-            <Link to="/">BrickX.</Link>
+            <Link to="/">Peer2Fund</Link>
           </h2>
         </div>
       </div>

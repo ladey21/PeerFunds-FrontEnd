@@ -1,3 +1,5 @@
+@import ../../../utils/scss/index
+
 $overlay-bg: #000000ad
 $section-a-height: 70vh
 $section-b-card-bg: #eaeaea
@@ -16,36 +18,37 @@ $blue-color: #471ec3
     margin: 0 auto
 
   .sections
-    padding: 60px 0
+    padding: 90px 0
 
     .title
-      font-size: 2.6rem
+      font-size: 3rem
       font-weight: 600
 
     .body
-      font-size: 1.4rem
+      font-size: 1rem
+      color: hsl(240deg 26% 75%)
 
     .img
       overflow: hidden
       border-radius: 2rem
+      width: 100%
       img
         cursor: pointer
         transition: .25s
         &:hover
-          transform: scale(1.2)
+          // transform: scale(1.2)
 
   .homepage-btn
     display: inline-block
-    background: transparent
-    color: #333
+    background: $third-color
+    color: #fff
     padding: 14px 60px
-    border: 1px solid
     transition: .25s
-    font-weight: 700
     font-size: 1.2rem
+    border-radius: 1rem
     cursor: pointer
     &:hover
-      background: #333
+      background: $secondary-color
       color: #fff
 
   .con-container
@@ -66,18 +69,21 @@ $blue-color: #471ec3
     top: 0
     height: 100vh
     width: 100%
-    color: #fff
 
     .con-navbar
       padding: 20px 40px
+      background: $third-color
 
       .con-left
         .logo
+          font-size: 1.2rem
+          .second
+            color: $secondary-color
 
       .con-right
         li
           a
-            font-size: 1.4rem
+            font-size: 1rem
             margin: 0 10px
             padding: 12px 24px
             border: 1px solid transparent
@@ -87,6 +93,7 @@ $blue-color: #471ec3
 
     .section-a
       height: $section-a-height
+      padding: 90px 0
 
       .con-top
         h2
@@ -95,7 +102,7 @@ $blue-color: #471ec3
           width: 90%
 
         .header-btn
-          background: transparent
+          background: $secondary-color
           padding: 14px 40px
           border: 1px solid
           transition: .25s
@@ -108,9 +115,9 @@ $blue-color: #471ec3
   .section-b
     display: flex
     flex-direction: column
-    align-items: center
+    align-items: flex-start
     justify-content: center
-    padding: 80px 20px
+    background: hsl(240deg 45% 18%)
 
     .con-card
       display: grid
@@ -157,7 +164,6 @@ $blue-color: #471ec3
           background: $blue-color
           color: #fff
           transform: translateY(-20px)
-          box-shadow: 0 4px 20px #979ec0
 
         .title
           font-size: 1.6rem
@@ -177,7 +183,7 @@ $blue-color: #471ec3
         margin: 60px 0
 
   .con-footer
-    background: $con-footer-bg
+    background: $third-color
     padding: 40px 30px
     color: #fff
     font-size: 1rem
@@ -187,14 +193,20 @@ $blue-color: #471ec3
 
 @media (min-width:992px)
   #Homepage_Main_Container
-    .section-b
-      padding: 80px
+    .sections
 
-      .con-card
-        grid-template-columns: repeat(3, 1fr)
+    .section-b
+      .img
+        width: 540px
 
     .con-wrapper
+      .con-navbar
+        .con-left
+          .logo
+            font-size: 1.4rem
+
       .section-a
+        
         .con-top
           h2
             font-size: 3.6rem

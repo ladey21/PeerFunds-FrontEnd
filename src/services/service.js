@@ -3,7 +3,7 @@ import _routes from "./service-routes";
 
 
 const service = {
-  setPageTitle: (component) => document.title = `BrickX - ${component}`,
+  setPageTitle: (component) => document.title = `Peer2Fund - ${component}`,
 
   browserHeight: () => window.innerHeight - 100,
   isMobile: navigator.userAgent.toLowerCase().match(/mobile/i),
