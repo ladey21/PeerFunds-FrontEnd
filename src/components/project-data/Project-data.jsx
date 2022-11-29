@@ -2,29 +2,28 @@ import Button from "components/button/Button";
 import Previous from "components/previous/Previous";
 import { useFormik } from "formik";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import service from "services/service";
 import "./css/Project-data.sass";
 
 function ProjectData() {
-  const [state, setState] = useState("open");
+  const [hasApplied, setHasApplied] = useState(false);
 
-  const [project, setProject] = useState({
-    title: "Trump Tower",
-    duration: "3 Months",
-    start_date: "2022-11-05",
-    budget: 3000,
-    applicants: 40,
-  });
+  const { id: groupID } = useParams();
+
+  const [project, setProject] = useState({});
+
+  const [query] = useSearchParams();
 
   service.setPageTitle("Trump Tower");
 
-  function handleState() {
-    if (state === "open") {
-      setState("closed");
+  function handleApply() {
+    if (hasApplied) {
+      setHasApplied(!hasApplied);
     } else {
-      setState("open");
+      setHasApplied(!hasApplied);
     }
   }
 
@@ -38,6 +37,16 @@ function ProjectData() {
     onSubmit,
   });
 
+  useEffect(() => {
+    function getGroupByID() {
+      service.getGroupById(groupID).then(
+        (data) => setProject(data),
+        (err) => console.log("Error fetching group by ID", err)
+      );
+    }
+    getGroupByID();
+  }, [groupID]);
+
   return (
     <div id="Project-data_Main_Container">
       <div className="section-a d-flex align-items-center justify-content-between mb-5">
@@ -45,96 +54,108 @@ function ProjectData() {
           <Previous route="/projects" />
         </div>
         <div className="con-edit">
-          <Button
-            type="primary"
-            text="Edit Project"
-            modal={true}
-            modalHeaderTitle="Update Project"
-            modalTarget="new-project-create"
-            modalContext={
-              <>
-                <form className="my-4">
-                  <div className="mb-3">
-                    <label htmlFor="title" className="form-label">
-                      Title:
-                    </label>
-                    <input
-                      id="title"
-                      name="title"
-                      type="text"
-                      className="form-control"
-                      onChange={formik.handleChange}
-                      value={formik.values.title}
-                    />
-                  </div>
+          {query.get("doapply") === "true" ? (
+            <>
+              <Button
+                text="Apply"
+                onClick={() => {
+                  handleApply();
+                  console.log(hasApplied);
+                }}
+              />
+            </>
+          ) : (
+            <Button
+              type="primary"
+              text="Edit Project"
+              modal={true}
+              modalHeaderTitle="Update Project"
+              modalTarget="new-project-create"
+              modalContext={
+                <>
+                  <form className="my-4">
+                    <div className="mb-3">
+                      <label htmlFor="title" className="form-label">
+                        Title:
+                      </label>
+                      <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.title}
+                      />
+                    </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="duration" className="form-label">
-                      Duration
-                    </label>
-                    <select
-                      className="form-select"
-                      name="duration"
-                      id="duration"
-                      onChange={formik.handleChange}
-                      value={formik.values.duration}
-                    >
-                      <option defaultValue="">Select project duration</option>
-                      <option>2 Weeks</option>
-                      <option value="1 month">1 Month</option>
-                      <option value="2 months">2 Months</option>
-                      <option value="3 months">3 Months </option>
-                      <option value="6 months">6 Months </option>
-                    </select>
-                  </div>
+                    <div className="mb-3">
+                      <label htmlFor="duration" className="form-label">
+                        Duration
+                      </label>
+                      <select
+                        className="form-select"
+                        name="duration"
+                        id="duration"
+                        onChange={formik.handleChange}
+                        value={formik.values.duration}
+                      >
+                        <option defaultValue="">Select project duration</option>
+                        <option>2 Weeks</option>
+                        <option value="1 month">1 Month</option>
+                        <option value="2 months">2 Months</option>
+                        <option value="3 months">3 Months </option>
+                        <option value="6 months">6 Months </option>
+                      </select>
+                    </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="start_date" className="form-label">
-                      Start Date:
-                    </label>
-                    <input
-                      id="start_date"
-                      name="start_date"
-                      type="date"
-                      className="form-control"
-                      onChange={formik.handleChange}
-                      value={formik.values.start_date}
-                    />
-                  </div>
+                    <div className="mb-3">
+                      <label htmlFor="start_date" className="form-label">
+                        Start Date:
+                      </label>
+                      <input
+                        id="start_date"
+                        name="start_date"
+                        type="date"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.start_date}
+                      />
+                    </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="budget" className="form-label">
-                      Budget
-                    </label>
-                    <input
-                      id="budget"
-                      name="budget"
-                      type="number"
-                      className="form-control"
-                      onChange={formik.handleChange}
-                      value={formik.values.budget}
-                    />
-                  </div>
-                </form>
-              </>
-            }
-            modalFooterBtn={
-              <>
-                <button data-bs-dismiss="modal" className="secondary-btn">
-                  Cancel
-                </button>
+                    <div className="mb-3">
+                      <label htmlFor="budget" className="form-label">
+                        Budget
+                      </label>
+                      <input
+                        id="budget"
+                        name="budget"
+                        type="number"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.budget}
+                      />
+                    </div>
+                  </form>
+                </>
+              }
+              modalFooterBtn={
+                <>
+                  <button data-bs-dismiss="modal" className="secondary-btn">
+                    Cancel
+                  </button>
 
-                <button
-                  type="submit"
-                  className="primary-btn"
-                  onClick={formik.handleSubmit}
-                  data-bs-dismiss="modal"
-                >
-                  Save
-                </button>
-              </>
-            }
-          />
+                  <button
+                    type="submit"
+                    className="primary-btn"
+                    onClick={formik.handleSubmit}
+                    data-bs-dismiss="modal"
+                  >
+                    Save
+                  </button>
+                </>
+              }
+            />
+          )}
         </div>
       </div>
 
@@ -143,34 +164,28 @@ function ProjectData() {
           <div>
             <div className="details-card">
               <div className="con-budget flex">
-                <h3>Budget:</h3>
-                <p>{project.budget}</p>
+                <h3>Group Name:</h3>
+                <p>{project.name}</p>
               </div>
 
               <div className="con-date flex">
-                <h3>Start Date:</h3>
-                <p>{project.start_date}</p>
+                <h3>Description:</h3>
+                <p>{project.description}</p>
               </div>
 
               <div className="con-duration flex">
-                <h3>Duration:</h3>
-                <p>{project.duration}</p>
+                <h3>Purpose:</h3>
+                <p>{project.purpose_title}</p>
               </div>
 
               <div className="con-apply flex">
-                <h3>No. of Applicants:</h3>
-                <p>{project.applicants}</p>
+                <h3>No. of Slots:</h3>
+                <p>{project.slots}</p>
               </div>
 
-              <div className="d-flex align-items-center justify-content-between mt-5">
-                <i></i>
-                <div
-                  className={`con-action ${state === "open" ? "active" : ""}`}
-                  onClick={handleState}
-                >
-                  {state === "open" ? "Close Project" : "Open Project"}
-                  <i className="ms-2 fa-solid fa-chevron-down"></i>
-                </div>
+              <div className="con-apply flex">
+                <h3>Group amount:</h3>
+                <p>{project.group_amount}</p>
               </div>
             </div>
           </div>

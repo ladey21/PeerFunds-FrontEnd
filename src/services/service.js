@@ -36,6 +36,10 @@ const service = {
     return res.data;
   },
 
+  getAllPublicGroups: async () => {
+    const res = await axios.get(_routes.publicGroups);
+    return res.data;
+  },
   getAllGroups: async () => {
     const res = await axios.get(_routes.groups);
     return res.data;

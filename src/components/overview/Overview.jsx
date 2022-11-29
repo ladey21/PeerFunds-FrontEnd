@@ -46,7 +46,7 @@ function Overview({ payload, currentUser }) {
 
   useEffect(() => {
     async function getGroup() {
-      service.getAllGroups().then(
+      service.getAllPublicGroups().then(
         (res) => setProjects([...res]),
         (err) => console.log("Error fetching groups", err)
       );
@@ -108,7 +108,10 @@ function Overview({ payload, currentUser }) {
                           </div>
 
                           <div>
-                            <Link to="/projects/id" className="arrow-link">
+                            <Link
+                              to={`/projects/${elem.id}?doapply=true`}
+                              className="arrow-link"
+                            >
                               View group
                               <i className="fa-solid fa-arrow-right ms-2"></i>
                             </Link>

@@ -89,7 +89,7 @@ function App() {
               }
             />
             <Route path="/projects" element={<Project />} />
-            <Route path="/projects/id" element={<ProjectData />} />
+            <Route path="/projects/:id" element={<ProjectData />} />
             <Route
               path="/my-profile"
               element={<Profile payload={getPayload()} currentUser={currentUser} />}

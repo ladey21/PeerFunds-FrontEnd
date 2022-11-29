@@ -184,16 +184,20 @@ function Project() {
                 {projects?.map((project, key) => (
                   <tr key={key}>
                     <td>
-                      <Link to="/projects/id">{key + 1}</Link>
+                      <Link to={`/projects/${project.id}`}>{key + 1}</Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.name}</Link>
+                      <Link to={`/projects/${project.id}`}>{project.name}</Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.group_amount}</Link>
+                      <Link to={`/projects/${project.id}`}>
+                        {project.group_amount}
+                      </Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.purpose_title}</Link>
+                      <Link to={`/projects/${project.id}`}>
+                        {project.purpose_title}
+                      </Link>
                     </td>
                   </tr>
                 ))}

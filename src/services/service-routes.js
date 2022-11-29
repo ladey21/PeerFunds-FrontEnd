@@ -20,6 +20,7 @@ const _routes = {
   login: `${authRoute}/signin`,
   register: `${authRoute}/signup`,
   groups: `${groupRoute}`,
+  publicGroups: `${userRoute}/${user_id}/public-groups`,
   updateGroup: `${groupRoute}/{gid}`,
   deleteGroup: `${groupRoute}/{gid}`,
   currentUserDetails: `${userRoute}/${user_id}`,
