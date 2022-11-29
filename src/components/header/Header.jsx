@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import s from "./css/Header.module.sass";
 
-function Header({logout, doToggle,payload}) {
+function Header({ logout, doToggle, payload }) {
   const username = payload.email;
-
 
   return (
     <div className={`${s.header_container} mb-2`}>
@@ -27,10 +26,11 @@ function Header({logout, doToggle,payload}) {
             <div
               className={`${s.con_user_btn} d-none d-lg-flex gap-3 pointer align-items-center`}
             >
-              <div className="user-profile-round d-none d-lg-flex gap-3 align-items-center">
-                {username ? <p>{username}</p> : ""}
-                <i className="fa-regular fa-user"></i>
-              </div>
+              <Link to="my-profile">
+                <div className="user-profile-round d-none d-lg-flex gap-3 align-items-center">
+                  {username ? <p>{username}</p> : ""}
+                </div>
+              </Link>
 
               <div className="dropdown">
                 <div
@@ -39,7 +39,11 @@ function Header({logout, doToggle,payload}) {
                 ></div>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to="/login" onClick={logout}>
+                    <Link
+                      className="dropdown-item"
+                      to="/login"
+                      onClick={logout}
+                    >
                       Logout
                     </Link>
                   </li>

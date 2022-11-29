@@ -19,9 +19,11 @@ import Login from "components/login/Login";
 import Register from "components/register/Register";
 import ProjectData from "components/project-data/Project-data";
 import Requests from "components/requests/Requests";
+import service from "services/service";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
 
   const token = localStorage.getItem("auth-token");
 
@@ -55,7 +57,13 @@ function App() {
     //     setIsAuthenticated(true);
     //   }
     // }
-    else setIsAuthenticated(true);
+    else {
+      setIsAuthenticated(true);
+      service.getCurrentUserData().then(
+        (data) => setCurrentUser(data),
+        (err) => console.log("Error getting current user data", err)
+      );
+    }
   }, [token]);
 
   return (
@@ -76,13 +84,15 @@ function App() {
           >
             <Route
               path="/overview"
-              element={<Overview payload={getPayload()} />}
+              element={
+                <Overview payload={getPayload()} currentUser={currentUser} />
+              }
             />
             <Route path="/projects" element={<Project />} />
             <Route path="/projects/id" element={<ProjectData />} />
             <Route
               path="/my-profile"
-              element={<Profile payload={getPayload()} />}
+              element={<Profile payload={getPayload()} currentUser={currentUser} />}
             />
             <Route
               path="/requests"

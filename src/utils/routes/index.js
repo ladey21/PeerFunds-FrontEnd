@@ -5,7 +5,7 @@ const routes = [
     role: 'all'
   },
   {
-    path: "/my groups",
+    path: "/projects",
     context: "Groups",
     role: 'all'
   },

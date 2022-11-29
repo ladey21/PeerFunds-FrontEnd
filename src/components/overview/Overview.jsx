@@ -4,41 +4,12 @@ import { Link } from "react-router-dom";
 import service from "services/service";
 import "./css/Overview.sass";
 
-function Overview({ payload }) {
-  const firstName = "John";
+function Overview({ payload, currentUser }) {
+  const firstName = currentUser.firstName;
 
   const isWorker = payload.role === "Worker";
 
-  const [projects, setProjects] = useState([
-    {
-      title: "Shirts Group",
-      status: "open",
-    },
-    {
-      title: "Provision Group",
-      status: "closed",
-    },
-    {
-      title: "Food Group",
-      status: "open",
-    },
-    {
-      title: "Food stock group",
-      status: "open",
-    },
-    // {
-    //   title: "Tr",
-    //   status: "open",
-    // },
-    // {
-    //   title: "Trump Tower",
-    //   status: "open",
-    // },
-    // {
-    //   title: "Trump Tower",
-    //   status: "open",
-    // },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   const requests = [
     {
@@ -75,8 +46,10 @@ function Overview({ payload }) {
 
   useEffect(() => {
     async function getGroup() {
-      const projectsList = await service.getAllGroups();
-      setProjects([...projects, projectsList]);
+      service.getAllGroups().then(
+        (res) => setProjects([...res]),
+        (err) => console.log("Error fetching groups", err)
+      );
     }
     getGroup();
   }, []);
@@ -100,10 +73,14 @@ function Overview({ payload }) {
               {!isWorker ? (
                 <div className="header d-flex align-items-center justify-content-between mb-5">
                   <h3>Public Groups&nbsp;({projects?.length})</h3>
-                  <Link to="/projects" className="arrow-link">
-                    View all
-                    <i className="fa-solid fa-arrow-right ms-2"></i>
-                  </Link>
+                  {projects?.length > 0 ? (
+                    <>
+                      <Link to="/projects" className="arrow-link">
+                        View all
+                        <i className="fa-solid fa-arrow-right ms-2"></i>
+                      </Link>
+                    </>
+                  ) : null}
                 </div>
               ) : (
                 <div className="header d-flex align-items-center justify-content-between mb-5">
@@ -119,23 +96,29 @@ function Overview({ payload }) {
             <div>
               {!isWorker ? (
                 <div className="content">
-                  {projects.map((elem, key) => (
-                    <div className="con-card" key={key}>
-                      <div className="d-flex align-items-center justify-content-between mb-4">
-                        <div className="title">{elem.title}</div>
-                        <div className={`status ${elem.status}`}>
-                          {elem.status}
-                        </div>
-                      </div>
+                  {projects.length > 0 ? (
+                    <>
+                      {projects?.map((elem, key) => (
+                        <div className="con-card" key={key}>
+                          <div className="d-flex align-items-center justify-content-between mb-4">
+                            <div className="title">{elem.name}</div>
+                            <div className={`status ${elem.group_amount}`}>
+                              {elem.group_amount}
+                            </div>
+                          </div>
 
-                      <div>
-                        <Link to="/projects/id" className="arrow-link">
-                          View group
-                          <i className="fa-solid fa-arrow-right ms-2"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
+                          <div>
+                            <Link to="/projects/id" className="arrow-link">
+                              View group
+                              <i className="fa-solid fa-arrow-right ms-2"></i>
+                            </Link>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <h4>No projects yet</h4>
+                  )}
                 </div>
               ) : (
                 <div className="content">
@@ -160,81 +143,6 @@ function Overview({ payload }) {
               )}
             </div>
           </div>
-
-          {/* Section B */}
-          {/* <div className="section-b">
-            <div>
-              {!isWorker ? (
-                <div className="header d-flex align-items-center justify-content-between mb-5">
-                  <h3>Workers&nbsp;</h3>
-                  <i></i>
-                </div>
-              ) : (
-                <div className="header d-flex align-items-center justify-content-between mb-5">
-                  <h3>Explore&nbsp;</h3>
-                  <i></i>
-                </div>
-              )}
-            </div>
-
-            <div className="content">
-              {!isWorker ? (
-                <>
-                  {projects.map((elem, key) => (
-                    <div className="con-card" key={key}>
-                      <div className="d-flex align-items-center gap-3 mb-4">
-                        <div className="image">
-                          <img
-                            src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt=""
-                          />
-                        </div>
-                        <div className="details">
-                          <p className="name">Zainab Sanni</p>
-                          <p className="job">Manager</p>
-                        </div>
-                      </div>
-
-                      <div>
-                        <Link
-                          to="/my-profile?search=view"
-                          className="arrow-link"
-                        >
-                          View Worker
-                          <i className="fa-solid fa-arrow-right ms-2"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <>
-                  {projects.map((elem, key) => (
-                    <div className="con-card" key={key}>
-                      <div className="d-flex align-items-start justify-content-between mb-4">
-                        <div>
-                          <div className="title mb-3">Manager</div>
-                          <p className="timestamp d-flex align-items-center gap-2">
-                            <i className="fa-regular fa-clock"></i>5 hours ago
-                          </p>
-                        </div>
-                        <div className={`status ${elem.status}`}>
-                          {elem.status}
-                        </div>
-                      </div>
-
-                      <div>
-                        <Link to="/explore/id" className="arrow-link">
-                          View
-                          <i className="fa-solid fa-arrow-right ms-2"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          </div> */}
         </div>
       </div>
     </div>

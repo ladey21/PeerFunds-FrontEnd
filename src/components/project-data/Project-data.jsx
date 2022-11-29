@@ -142,13 +142,6 @@ function ProjectData() {
         <div className="mb-5">
           <div>
             <div className="details-card">
-              <div className="header d-flex align-items-center justify-content-between mb-3">
-                <h3 className="title">{project.title}</h3>
-                <div className={`status ${state === "open" ? "active" : ""}`}>
-                  {state}
-                </div>
-              </div>
-
               <div className="con-budget flex">
                 <h3>Budget:</h3>
                 <p>{project.budget}</p>
@@ -193,7 +186,10 @@ function ProjectData() {
               modalTarget="view-all-applicants"
               modalContext={
                 <div className="con-applicant">
-                  <Link to="/my-profile?search=view?select=check" data-bs-dismiss="modal">
+                  <Link
+                    to="/my-profile?search=view?select=check"
+                    data-bs-dismiss="modal"
+                  >
                     <div className="applicant-card d-flex align-items-center justify-content-between">
                       <div className="con-left">
                         <div className="con-img">

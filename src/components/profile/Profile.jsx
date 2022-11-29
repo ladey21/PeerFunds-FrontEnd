@@ -7,63 +7,24 @@ import service from "services/service";
 import { Link, useSearchParams } from "react-router-dom";
 import Previous from "components/previous/Previous";
 
-function Profile({ payload }) {
+function Profile({ payload, currentUser }) {
   service.setPageTitle("My Profile");
 
   const [query] = useSearchParams();
 
-  const [user, setUser] = useState({
-    firstName: "Zainab",
-    lastName: "Sanni",
-    email: "zainabsanni@gmail.com",
-    type: payload?.role === "Worker" ? "" : payload?.role?.toLowerCase(),
-    job: "Cost Manager",
-    bio: "I experiment with liquid art photography. Extended licenses and some of my best art photos available through my website link below.",
-    gender: "Female",
-  });
+  // const [user, setUser] = useState({
+  //   firstName: "Zainab",
+  //   lastName: "Sanni",
+  //   email: "zainabsanni@gmail.com",
+  //   type: payload?.role === "Worker" ? "" : payload?.role?.toLowerCase(),
+  //   job: "Cost Manager",
+  //   bio: "I experiment with liquid art photography. Extended licenses and some of my best art photos available through my website link below.",
+  //   gender: "Female",
+  // });
 
-  const reviews = [
-    {
-      reviewer: {
-        firstname: "Ife",
-        lastname: "Jeremiah",
-        job: "Manager",
-        type: "contractor",
-      },
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate officiis inventore eius porro nisi perspiciatis in, repellat illum commodi iure.",
-    },
-    {
-      reviewer: {
-        firstname: "Ife",
-        lastname: "Jeremiah",
-        job: "Manager",
-        type: "contractor",
-      },
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate officiis inventore eius porro nisi perspiciatis in, repellat illum commodi iure.",
-    },
-    {
-      reviewer: {
-        firstname: "Ife",
-        lastname: "Jeremiah",
-        job: "Manager",
-        type: "contractor",
-      },
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate officiis inventore eius porro nisi perspiciatis in, repellat illum commodi iure.",
-    },
-    {
-      reviewer: {
-        firstname: "Ife",
-        lastname: "Jeremiah",
-        job: "Manager",
-        type: "contractor",
-      },
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate officiis inventore eius porro nisi perspiciatis in, repellat illum commodi iure.",
-    },
-  ];
+  const [user, setUser] = useState(currentUser);
+
+  console.log(currentUser)
 
   const formik = useFormik({
     initialValues: user,
@@ -95,12 +56,6 @@ function Profile({ payload }) {
           ) : null}
 
           <div className="d-sm-flex align-items-center gap-3 gap-lg-4 mb-lg-4">
-            <div className="user-img">
-              <img
-                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                alt=""
-              />
-            </div>
 
             <div className="user-data d-flex align-items-center justify-content-lg-center gap-4">
               <div className="username">
@@ -108,8 +63,8 @@ function Profile({ payload }) {
               </div>
 
               {user.type &&
-              (query.get("search") !== "view" &&
-                query.get("select") !== "check") ? (
+              query.get("search") !== "view" &&
+              query.get("select") !== "check" ? (
                 <div
                   className="user-type"
                   title="Contractor User Type - Contractor creates projects and assign jobs to workers."
@@ -119,29 +74,9 @@ function Profile({ payload }) {
               ) : null}
             </div>
           </div>
-
-          <div className="user-bio">
-            <p>
-              I experiment with liquid art photography. Extended licenses and
-              some of my best art photos available through my website link
-              below.
-            </p>
-          </div>
         </div>
 
         <div className="d-flex align-items-start gap-5">
-          <div className="con-rating mb-3 mb-lg-0 me-lg-5">
-            <div className="rating-text mb-2">4.5 Ratings</div>
-            <div>
-              <div className="rating-icon">
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star-half-stroke"></i>
-                <i className="fa-regular fa-star"></i>
-              </div>
-            </div>
-          </div>
 
           {query.get("select") === "check" ? (
             <>
@@ -272,71 +207,6 @@ function Profile({ payload }) {
               />
             </div>
           ) : null}
-
-          {query.get("search") === "view" ? (
-            <div className="view-user-btn py-3 ms-lg-5">
-              <Button
-                text="Leave Review"
-                modal
-                modalTarget="view-user-profile"
-                modalHeaderTitle="Review Worker"
-                modalContext={
-                  <>
-                    <div className="mb-3">
-                      <label htmlFor="rating" className="form-label">
-                        Rating
-                      </label>
-                      <select
-                        className="form-select"
-                        name="rating"
-                        id="rating"
-                        onChange={reviewForm.handleChange}
-                        value={reviewForm.values.rating}
-                      >
-                        <option defaultValue="">Select review</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="body" className="form-label">
-                        Review
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="body"
-                        name="body"
-                        onChange={reviewForm.handleChange}
-                        value={reviewForm.values.body}
-                      />
-                    </div>
-                  </>
-                }
-                modalFooterBtn={
-                  <>
-                    <>
-                      <button data-bs-dismiss="modal" className="secondary-btn">
-                        Close
-                      </button>
-
-                      <button
-                        type="submit"
-                        className="primary-btn"
-                        onClick={reviewForm.handleSubmit}
-                        data-bs-dismiss="modal"
-                      >
-                        Save
-                      </button>
-                    </>
-                  </>
-                }
-              />
-            </div>
-          ) : null}
         </div>
       </div>
 
@@ -363,55 +233,19 @@ function Profile({ payload }) {
             </div>
             <div className="col-12 col-lg-3">
               <div className="mb-5 mb-lg-0">
-                <h3>Gender</h3>
-                <p>{user.gender}</p>
+                <h3>Phone Number</h3>
+                <p>{user.phoneNumber}</p>
               </div>
             </div>
             <div className="col-12 col-lg-3">
               <div className="mb-5 mb-lg-0">
-                <h3>Profession</h3>
-                <p>{user.job}</p>
+                <h3>Role</h3>
+                <p>{user.role}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <section className="con-review sections">
-        <div className="header">
-          <h3 className="section-title">Reviews:</h3>
-        </div>
-
-        <div className="context my-5">
-          {reviews.map((review, key) => (
-            <div className="review-cards" key={key}>
-              <div className="title d-flex align-items-center gap-3 mb-3">
-                <div className="user-image">
-                  <img
-                    src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="d-lg-flex align-items-start gap-3">
-                  <div>
-                    <div className="user-name">
-                      {review.reviewer.firstname}&nbsp;
-                      {review.reviewer.lastname}
-                    </div>
-                    <div className="user-title">{review.reviewer.job}</div>
-                  </div>
-                  <div>
-                    <div className="user-detail">{review.reviewer.type}</div>
-                  </div>
-                </div>
-              </div>
-              <div className="body">
-                <p>{review.content}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

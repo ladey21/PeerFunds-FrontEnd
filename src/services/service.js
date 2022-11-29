@@ -27,7 +27,7 @@ const service = {
   isMobile: navigator.userAgent.toLowerCase().match(/mobile/i),
 
   getCurrentUserData: async () => {
-    const res = await axios.get(_routes.users);
+    const res = await axios.get(_routes.currentUserDetails);
     return res.data;
   },
 
@@ -38,6 +38,11 @@ const service = {
 
   getAllGroups: async () => {
     const res = await axios.get(_routes.groups);
+    return res.data;
+  },
+
+  getGroupById: async (groupId) => {
+    const res = await axios.get(`${_routes.groups}/${groupId}`);
     return res.data;
   },
 };

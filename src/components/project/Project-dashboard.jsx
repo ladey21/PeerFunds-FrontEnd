@@ -22,25 +22,19 @@ function Project() {
   useEffect(() => {
     function fetchAllGroups() {
       service.getAllGroups().then(
-        (res) => {
-          // setProject([projects, ...res]);
-        },
+        (res) => setProject([...res]),
         (err) => console.log("Error loading groups", err)
       );
     }
     fetchAllGroups();
-  }, []);
+  }, [projects]);
 
   function onSubmit(values) {
     console.log(JSON.stringify(values, null, 2));
     service.createGroup(values).then(
-      () => {},
-      (err) => {
-        console.log("error creating project", err);
-      }
+      () => groupForm.resetForm(),
+      (err) => console.log("error creating project", err)
     );
-    // setProject([values, ...projects]);
-    // formik.resetForm();
   }
 
   const groupForm = useFormik({
@@ -175,45 +169,31 @@ function Project() {
       </div>
 
       <div className="con-context">
-        {projects.length > 0 ? (
+        {projects?.length > 0 ? (
           <div className=" table-responsive">
             <table className="table">
               <thead>
                 <tr className="header-row">
                   <th scope="col">#</th>
-                  <th scope="col">Title</th>
+                  <th scope="col">Name</th>
                   <th scope="col">Budget (&#8358;)</th>
-                  <th scope="col">Duration</th>
-                  <th scope="col">No. of Applicants</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Purpose</th>
                 </tr>
               </thead>
               <tbody>
-                {projects.map((project, key) => (
+                {projects?.map((project, key) => (
                   <tr key={key}>
                     <td>
                       <Link to="/projects/id">{key + 1}</Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.title}</Link>
+                      <Link to="/projects/id">{project.name}</Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.budget}</Link>
+                      <Link to="/projects/id">{project.group_amount}</Link>
                     </td>
                     <td>
-                      <Link to="/projects/id">{project.duration}</Link>
-                    </td>
-                    <td>{23}</td>
-                    <td>
-                      <Link to="/projects/id">
-                        <div
-                          className={`status ${
-                            project.status === "open" ? "active" : ""
-                          }`}
-                        >
-                          {project.status}
-                        </div>
-                      </Link>
+                      <Link to="/projects/id">{project.purpose_title}</Link>
                     </td>
                   </tr>
                 ))}
