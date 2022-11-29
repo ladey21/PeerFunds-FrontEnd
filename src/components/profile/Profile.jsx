@@ -16,13 +16,11 @@ function Profile({ payload }) {
     firstName: "Zainab",
     lastName: "Sanni",
     email: "zainabsanni@gmail.com",
-    type: payload.role === "Worker" ? "" : payload.role.toLowerCase(),
+    type: payload?.role === "Worker" ? "" : payload?.role?.toLowerCase(),
     job: "Cost Manager",
     bio: "I experiment with liquid art photography. Extended licenses and some of my best art photos available through my website link below.",
     gender: "Female",
   });
-
-  console.log(payload.role);
 
   const reviews = [
     {

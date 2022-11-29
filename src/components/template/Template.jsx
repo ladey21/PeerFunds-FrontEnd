@@ -25,7 +25,7 @@ function Template({ logout, payload }) {
 
   return (
     <div className="template-container p-2" id="Template_Main_Container">
-      <Header logout={logout} doToggle={doToggle} />
+      <Header logout={logout} doToggle={doToggle} payload={payload}/>
 
       <div className="d-flex align-items-start">
         <div className={`${toggle} col-8 col-lg-2 d-lg-block`}>

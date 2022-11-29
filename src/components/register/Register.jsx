@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import registerValidationSchema from "schema/registerSchema";
+import authService from "services/authService";
 
 import service from "services/service";
 import "./css/Register.sass";
@@ -25,12 +26,12 @@ function Register() {
 
   function onSubmit(values) {
     console.log(JSON.stringify(values, null, 2));
-    service.doRegister(values).then(
-      (res) => {
+    authService.doRegister(values).then(
+      () => {
         formik.resetForm();
         navigate({ pathname: "/login", search: "?__lgn=vlan" });
       },
-      (err) => service.handleRegisterError(err, setMsg)
+      (err) => authService.handleRegisterError(err, setMsg)
     );
   }
 
@@ -92,7 +93,7 @@ function Register() {
             type="email"
             id="email"
             placeholder="Enter Email"
-            name="email"
+            name="emailAddress"
             value={formik.values.emailAddress}
             onChange={formik.handleChange}
           />

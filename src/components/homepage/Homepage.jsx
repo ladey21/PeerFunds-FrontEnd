@@ -72,9 +72,7 @@ function Homepage() {
                     Alternative finance for every Nigerian
                   </h1>
                   <p className="body mb-5">
-                    Worker profiles with ratings and reviews from past
-                    contractors gives you the assurance to select the highest
-                    quality workers for your projects.
+                  Community investment that fosters collective growth, investment in assets alongside other people in a clan.
                   </p>
 
                   <div className="homepage-btn" onClick={gotoGetStart}>

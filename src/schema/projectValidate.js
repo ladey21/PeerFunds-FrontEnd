@@ -1,33 +1,23 @@
 import * as Yup from "yup";
 
-const projectSchema = Yup.object().shape({
-  title: Yup.string()
-    .required("Title is required")
-    .min(6, "Title must be at least 6 characters")
-    .max(20, "Title must not exceed 40 characters"),
-  duration: Yup.string().required("Duration is required"),
-  start_date: Yup.date().required("Start date is required"),
-  budget: Yup.number()
-    .required("Budget is required")
-    .min(8, "Budget must be at least 8 numbers"),
+const groupSchema = Yup.object().shape({
+  name: Yup.string()
+    .matches(/^[a-zA-Z]+$/, "Invalid group name")
+    .required("Name is required"),
+  purpose: Yup.string()
+    .matches(/^[a-zA-Z]+$/, "Invalid data entry")
+    .required("Purpose is required"),
+  slots: Yup.number().required("Slots are required"),
+  description: Yup.string().required("Description is required"),
+  amount: Yup.number().required("Amount is required"),
 });
 
-const projectData = {
-  title: "",
-  duration: "",
-  start_date: "",
-  budget: 0,
-  workers: {
-    inspector: false,
-    flooringInstaller: false,
-    surveyor: false,
-    brickMason: false,
-    ironWorker: false,
-    craneOperator: false,
-    safetyManager: false,
-    costEstimator: false,
-    manager: false,
-  },
-}
+const groupData = {
+  name: "",
+  purpose: "",
+  slots: "",
+  description: "",
+  amount: "",
+};
 
-export { projectSchema, projectData };
+export { groupSchema, groupData };

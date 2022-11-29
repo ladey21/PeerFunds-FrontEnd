@@ -43,19 +43,17 @@ function Sidebar({ routes, doToggle, logout, role }) {
           ))}
         </ul>
 
-        {service.isMobile ? (
-          <>
-            <li>
-              <Link
-                to="/login"
-                onClick={logout}
-                className={`${s.last_sidebar_item}`}
-              >
-                Logout
-              </Link>
-            </li>
-          </>
-        ) : null}
+        <div className="d-lg-none">
+          <li>
+            <Link
+              to="/login"
+              onClick={logout}
+              className={`${s.last_sidebar_item}`}
+            >
+              Logout
+            </Link>
+          </li>
+        </div>
       </div>
     </div>
   );

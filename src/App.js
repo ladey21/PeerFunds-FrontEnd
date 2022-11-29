@@ -27,13 +27,13 @@ function App() {
 
   function getPayload() {
     if (isAuthenticated && token !== null) {
-      const { role, user_id } = JSON.parse(atob(token.split(".")[1]));
-      return { role, user_id };
+      const { roles: role, id: user_id, email } = JSON.parse(token);
+      return { role, user_id, email };
     }
   }
 
   function setAuthEnv(token) {
-    localStorage.setItem("auth-token", token);
+    localStorage.setItem("auth-token", JSON.stringify(token));
     setIsAuthenticated(true);
   }
 
@@ -74,11 +74,20 @@ function App() {
               )
             }
           >
-            <Route path="/overview" element={<Overview payload={getPayload()} />} />
+            <Route
+              path="/overview"
+              element={<Overview payload={getPayload()} />}
+            />
             <Route path="/projects" element={<Project />} />
             <Route path="/projects/id" element={<ProjectData />} />
-            <Route path="/my-profile" element={<Profile payload={getPayload()} />} />
-            <Route path="/requests" element={<Requests  payload={getPayload()}/>} />
+            <Route
+              path="/my-profile"
+              element={<Profile payload={getPayload()} />}
+            />
+            <Route
+              path="/requests"
+              element={<Requests payload={getPayload()} />}
+            />
             <Route path="/explore" element={<Explore />} />
             <Route path="/explore/id" element={<ProjectDetail />} />
           </Route>

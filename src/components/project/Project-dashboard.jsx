@@ -1,143 +1,51 @@
 import { useFormik } from "formik";
 
 import Button from "components/button/Button";
-import { projectSchema, projectData } from "schema/projectValidate";
+import {
+  projectSchema,
+  projectData,
+  groupData,
+  groupSchema,
+} from "schema/projectValidate";
 import "./css/Project.sass";
 
 import { useState } from "react";
 import service from "services/service";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function Project() {
   service.setPageTitle("Projects");
 
-  const [projects, setProject] = useState([
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "closed",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "open",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "open",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "closed",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "open",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-    {
-      title: "The Art of the Deal",
-      duration: "1 month",
-      start_date: "2022-11-05",
-      end_date: "2022-11-13",
-      status: "closed",
-      budget: 212,
-      workers: [
-        "inspector",
-        "flooringInstaller",
-        "surveyor",
-        "brickMason",
-        "ironWorker",
-        "craneOperator",
-        "safetyManager",
-        "costEstimator",
-        "manager",
-      ],
-    },
-  ]);
+  const [projects, setProject] = useState([]);
+
+  useEffect(() => {
+    function fetchAllGroups() {
+      service.getAllGroups().then(
+        (res) => {
+          // setProject([projects, ...res]);
+        },
+        (err) => console.log("Error loading groups", err)
+      );
+    }
+    fetchAllGroups();
+  }, []);
 
   function onSubmit(values) {
     console.log(JSON.stringify(values, null, 2));
-    values.status = "open";
-    setProject([values, ...projects]);
-    formik.resetForm();
+    service.createGroup(values).then(
+      () => {},
+      (err) => {
+        console.log("error creating project", err);
+      }
+    );
+    // setProject([values, ...projects]);
+    // formik.resetForm();
   }
 
-  const formik = useFormik({
-    initialValues: projectData,
-    validationSchema: projectSchema,
+  const groupForm = useFormik({
+    initialValues: groupData,
+    validationSchema: groupSchema,
     onSubmit,
   });
 
@@ -145,253 +53,98 @@ function Project() {
     <div className="main-container" id="Project-dashboard_Main_Container">
       <div className="con-header d-flex align-items-center justify-content-between">
         <div className="title">
-          <h2>Projects</h2>
+          <h2>Groups</h2>
         </div>
 
         <div className="header-btn">
           <Button
             type="primary"
-            text="New Project"
+            text="New Group"
             modal={true}
-            modalHeaderTitle="Create New Project"
+            modalHeaderTitle="Create New Group"
             modalTarget="new-project-create"
             modalContext={
               <form className="my-4">
                 <div className="mb-3">
-                  <label htmlFor="title" className="form-label">
-                    Title
-                  </label>
+                  <label className="form-label">Group Name</label>
                   <input
-                    id="title"
-                    name="title"
+                    name="name"
                     type="text"
                     className="form-control"
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
+                    onChange={groupForm.handleChange}
+                    value={groupForm.values.name}
                   />
 
                   <p className="invalid-data">
-                    {formik.errors.title && formik.touched.title
-                      ? formik.errors.title
+                    {groupForm.errors.name && groupForm.touched.name
+                      ? groupForm.errors.name
                       : null}
                   </p>
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="duration" className="form-label">
-                    Duration
-                  </label>
-                  <select
-                    className="form-select"
-                    name="duration"
-                    id="duration"
-                    onChange={formik.handleChange}
-                    value={formik.values.duration}
-                  >
-                    <option defaultValue="">Select project duration</option>
-                    <option>2 Weeks</option>
-                    <option value="1 month">1 Month</option>
-                    <option value="2 months">2 Months</option>
-                    <option value="3 months">3 Months </option>
-                    <option value="6 months">6 Months </option>
-                  </select>
+                  <label className="form-label">Description</label>
+                  <textarea
+                    name="description"
+                    type="text"
+                    className="form-control"
+                    onChange={groupForm.handleChange}
+                    value={groupForm.values.description}
+                  />
                   <p className="invalid-data">
-                    {formik.errors.duration && formik.touched.duration
-                      ? formik.errors.duration
+                    {groupForm.errors.description &&
+                    groupForm.touched.description
+                      ? groupForm.errors.description
                       : null}
                   </p>
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="budget" className="form-label">
-                    Budget
-                  </label>
+                  <label className="form-label">Purpose</label>
+                  <input
+                    name="purpose"
+                    type="text"
+                    className="form-control"
+                    onChange={groupForm.handleChange}
+                    value={groupForm.values.purpose}
+                  />
+                  <p className="invalid-data">
+                    {groupForm.errors.purpose && groupForm.touched.purpose
+                      ? groupForm.errors.purpose
+                      : null}
+                  </p>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Slots</label>
                   <input
                     className="form-control"
-                    id="budget"
-                    name="budget"
+                    name="slots"
                     type="number"
-                    onChange={formik.handleChange}
-                    value={formik.values.budget}
+                    onChange={groupForm.handleChange}
+                    value={groupForm.values.slots}
                   />
                   <p className="invalid-data">
-                    {formik.errors.budget && formik.touched.budget
-                      ? formik.errors.budget
+                    {groupForm.errors.slots && groupForm.touched.slots
+                      ? groupForm.errors.slots
                       : null}
                   </p>
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="start_date" className="form-label">
-                    Start Date
-                  </label>
+                  <label className="form-label">Amount</label>
                   <input
                     className="form-control"
-                    id="start_date"
-                    name="start_date"
-                    type="date"
-                    onChange={formik.handleChange}
-                    value={formik.values.start_date}
+                    name="amount"
+                    type="number"
+                    onChange={groupForm.handleChange}
+                    value={groupForm.values.amount}
                   />
                   <p className="invalid-data">
-                    {formik.errors.start_date && formik.touched.start_date
-                      ? formik.errors.start_date
+                    {groupForm.errors.amount && groupForm.touched.amount
+                      ? groupForm.errors.amount
                       : null}
                   </p>
-                </div>
-
-                <h5 className="my-4">Select workers you need</h5>
-                <p className="invalid-data mb-2">
-                  {formik.errors.hasWorkers && formik.touched.hasWorkers
-                    ? formik.errors.hasWorkers
-                    : null}
-                </p>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="inspector"
-                      name="workers.inspector"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.inspector}
-                    />
-                    <label className="form-check-label" htmlFor="inspector">
-                      Inspector
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="flooringInstaller"
-                      name="workers.flooringInstaller"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.flooringInstaller}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flooringInstaller"
-                    >
-                      Flooring Installer
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="surveyor"
-                      name="workers.surveyor"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.surveyor}
-                    />
-                    <label className="form-check-label" htmlFor="surveyor">
-                      Surveyor
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="brickMason"
-                      name="workers.brickMason"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.brickMason}
-                    />
-                    <label className="form-check-label" htmlFor="brickMason">
-                      Brick Mason
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="ironWorker"
-                      name="workers.ironWorker"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.ironWorker}
-                    />
-                    <label className="form-check-label" htmlFor="ironWorker">
-                      Iron Worker
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="craneOperator"
-                      name="workers.craneOperator"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.craneOperator}
-                    />
-                    <label className="form-check-label" htmlFor="craneOperator">
-                      Crane Operator
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="safetyManager"
-                      name="workers.safetyManager"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.safetyManager}
-                    />
-                    <label className="form-check-label" htmlFor="safetyManager">
-                      Safety Manager
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="costEstimator"
-                      name="workers.costEstimator"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.costEstimator}
-                    />
-                    <label className="form-check-label" htmlFor="costEstimator">
-                      Cost Estimator
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <div className="form-check form-switch">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="manager"
-                      name="workers.manager"
-                      onChange={formik.handleChange}
-                      checked={formik.values.workers.manager}
-                    />
-                    <label className="form-check-label" htmlFor="manager">
-                      Manager
-                    </label>
-                  </div>
                 </div>
               </form>
             }
@@ -400,7 +153,7 @@ function Project() {
                 <button
                   data-bs-dismiss="modal"
                   className="secondary-btn"
-                  onClick={formik.resetForm}
+                  onClick={groupForm.resetForm}
                 >
                   Close
                 </button>
@@ -408,12 +161,12 @@ function Project() {
                 <button
                   type="submit"
                   className="primary-btn"
-                  onClick={formik.handleSubmit}
+                  onClick={groupForm.handleSubmit}
                   data-bs-dismiss={
-                    formik.isValid && formik.dirty ? "modal" : null
+                    groupForm.isValid && groupForm.dirty ? "modal" : null
                   }
                 >
-                  Next
+                  Create group
                 </button>
               </>
             }

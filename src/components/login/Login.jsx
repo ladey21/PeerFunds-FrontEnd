@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import authService from "services/authService";
 import service from "services/service";
 import "./css/Login.sass";
 
@@ -22,14 +23,13 @@ function Login({ authStatus }) {
   function submit(evt) {
     evt.preventDefault();
     validate(() => {
-      console.log(JSON.stringify({ email, password }, null, 2));
-      // service.doLogin({ email, password }).then(
-      //   (res) => {
-      //     authStatus(res.accessToken);
-      //     navigate({ pathname: "/overview" });
-      //   },
-      //   (err) => service.handleLoginError(err, setMsg)
-      // );
+      authService.doLogin({ email, password }).then(
+        (res) => {
+          authStatus(res);
+          navigate({ pathname: "/overview" });
+        },
+        (err) => console.log(err)
+      );
     });
   }
 

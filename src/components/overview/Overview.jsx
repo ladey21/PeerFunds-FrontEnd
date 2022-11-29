@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import service from "services/service";
 import "./css/Overview.sass";
@@ -7,48 +9,48 @@ function Overview({ payload }) {
 
   const isWorker = payload.role === "Worker";
 
-  const projects = [
+  const [projects, setProjects] = useState([
     {
-      title: "Trump Tower",
+      title: "Shirts Group",
       status: "open",
     },
     {
-      title: "Trump Tower",
+      title: "Provision Group",
       status: "closed",
     },
     {
-      title: "Trump Tower",
+      title: "Food Group",
       status: "open",
     },
     {
-      title: "Trump Tower",
+      title: "Food stock group",
       status: "open",
     },
-    {
-      title: "Trump Tower",
-      status: "open",
-    },
-    {
-      title: "Trump Tower",
-      status: "open",
-    },
-    {
-      title: "Trump Tower",
-      status: "open",
-    },
-  ];
+    // {
+    //   title: "Tr",
+    //   status: "open",
+    // },
+    // {
+    //   title: "Trump Tower",
+    //   status: "open",
+    // },
+    // {
+    //   title: "Trump Tower",
+    //   status: "open",
+    // },
+  ]);
 
   const requests = [
     {
-      title: "Trump Tower",
-      status: "pending",
+      title: "Shirts Group",
+      status: "Open",
     },
     {
-      title: "Trump Tower",
-      status: "accepted",
+      title: "School Provision Group",
+      status: "Open",
     },
     {
-      title: "Trump Tower",
+      title: "",
       status: "declined",
     },
     {
@@ -70,6 +72,15 @@ function Overview({ payload }) {
   ];
 
   service.setPageTitle("Overview");
+
+  useEffect(() => {
+    async function getGroup() {
+      const projectsList = await service.getAllGroups();
+      setProjects([...projects, projectsList]);
+    }
+    getGroup();
+  }, []);
+
   return (
     <div className="component-container" id="Overview_Main_Container">
       <div>
@@ -88,7 +99,7 @@ function Overview({ payload }) {
             <div>
               {!isWorker ? (
                 <div className="header d-flex align-items-center justify-content-between mb-5">
-                  <h3>My Projects&nbsp;({projects.length})</h3>
+                  <h3>Public Groups&nbsp;({projects?.length})</h3>
                   <Link to="/projects" className="arrow-link">
                     View all
                     <i className="fa-solid fa-arrow-right ms-2"></i>
@@ -119,7 +130,7 @@ function Overview({ payload }) {
 
                       <div>
                         <Link to="/projects/id" className="arrow-link">
-                          View project
+                          View group
                           <i className="fa-solid fa-arrow-right ms-2"></i>
                         </Link>
                       </div>
@@ -151,7 +162,7 @@ function Overview({ payload }) {
           </div>
 
           {/* Section B */}
-          <div className="section-b">
+          {/* <div className="section-b">
             <div>
               {!isWorker ? (
                 <div className="header d-flex align-items-center justify-content-between mb-5">
@@ -223,7 +234,7 @@ function Overview({ payload }) {
                 </>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

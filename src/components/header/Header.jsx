@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import s from "./css/Header.module.sass";
 
-function Header({logout, doToggle}) {
-  const username = "Ife Jeremiah";
+function Header({logout, doToggle,payload}) {
+  const username = payload.email;
 
 
   return (
