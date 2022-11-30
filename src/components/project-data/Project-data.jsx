@@ -20,11 +20,10 @@ function ProjectData() {
   service.setPageTitle("Trump Tower");
 
   function handleApply() {
-    if (hasApplied) {
-      setHasApplied(!hasApplied);
-    } else {
-      setHasApplied(!hasApplied);
-    }
+    service.applyToGroupById(groupID).then(
+      () => setHasApplied(true),
+      (err) => console.log("Error applying to group", err)
+    );
   }
 
   function onSubmit(values) {
@@ -54,108 +53,115 @@ function ProjectData() {
           <Previous route="/projects" />
         </div>
         <div className="con-edit">
-          {query.get("doapply") === "true" ? (
+          {query.get("doapply") === "true" && hasApplied ? (
+            <>
+              <Button text="Applied" btnType={false} /> &nbsp;&nbsp;
+              <Button text="Decline" />
+            </>
+          ) : null}
+
+          {query.get("doapply") === "true" && !hasApplied ? (
+            <>
+              <Button text="Apply" onClick={() => handleApply()} />
+            </>
+          ) : null}
+
+          {query.get("doapply") !== "true" ? (
             <>
               <Button
-                text="Apply"
-                onClick={() => {
-                  handleApply();
-                  console.log(hasApplied);
-                }}
+                type="primary"
+                text="Edit Project"
+                modal={true}
+                modalHeaderTitle="Update Project"
+                modalTarget="new-project-create"
+                modalContext={
+                  <>
+                    <form className="my-4">
+                      <div className="mb-3">
+                        <label htmlFor="title" className="form-label">
+                          Title:
+                        </label>
+                        <input
+                          id="title"
+                          name="title"
+                          type="text"
+                          className="form-control"
+                          onChange={formik.handleChange}
+                          value={formik.values.title}
+                        />
+                      </div>
+
+                      <div className="mb-3">
+                        <label htmlFor="duration" className="form-label">
+                          Duration
+                        </label>
+                        <select
+                          className="form-select"
+                          name="duration"
+                          id="duration"
+                          onChange={formik.handleChange}
+                          value={formik.values.duration}
+                        >
+                          <option defaultValue="">
+                            Select project duration
+                          </option>
+                          <option>2 Weeks</option>
+                          <option value="1 month">1 Month</option>
+                          <option value="2 months">2 Months</option>
+                          <option value="3 months">3 Months </option>
+                          <option value="6 months">6 Months </option>
+                        </select>
+                      </div>
+
+                      <div className="mb-3">
+                        <label htmlFor="start_date" className="form-label">
+                          Start Date:
+                        </label>
+                        <input
+                          id="start_date"
+                          name="start_date"
+                          type="date"
+                          className="form-control"
+                          onChange={formik.handleChange}
+                          value={formik.values.start_date}
+                        />
+                      </div>
+
+                      <div className="mb-3">
+                        <label htmlFor="budget" className="form-label">
+                          Budget
+                        </label>
+                        <input
+                          id="budget"
+                          name="budget"
+                          type="number"
+                          className="form-control"
+                          onChange={formik.handleChange}
+                          value={formik.values.budget}
+                        />
+                      </div>
+                    </form>
+                  </>
+                }
+                modalFooterBtn={
+                  <>
+                    <button data-bs-dismiss="modal" className="secondary-btn">
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      className="primary-btn"
+                      onClick={formik.handleSubmit}
+                      data-bs-dismiss="modal"
+                    >
+                      Save
+                    </button>
+                  </>
+                }
               />
             </>
-          ) : (
-            <Button
-              type="primary"
-              text="Edit Project"
-              modal={true}
-              modalHeaderTitle="Update Project"
-              modalTarget="new-project-create"
-              modalContext={
-                <>
-                  <form className="my-4">
-                    <div className="mb-3">
-                      <label htmlFor="title" className="form-label">
-                        Title:
-                      </label>
-                      <input
-                        id="title"
-                        name="title"
-                        type="text"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.title}
-                      />
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="duration" className="form-label">
-                        Duration
-                      </label>
-                      <select
-                        className="form-select"
-                        name="duration"
-                        id="duration"
-                        onChange={formik.handleChange}
-                        value={formik.values.duration}
-                      >
-                        <option defaultValue="">Select project duration</option>
-                        <option>2 Weeks</option>
-                        <option value="1 month">1 Month</option>
-                        <option value="2 months">2 Months</option>
-                        <option value="3 months">3 Months </option>
-                        <option value="6 months">6 Months </option>
-                      </select>
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="start_date" className="form-label">
-                        Start Date:
-                      </label>
-                      <input
-                        id="start_date"
-                        name="start_date"
-                        type="date"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.start_date}
-                      />
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="budget" className="form-label">
-                        Budget
-                      </label>
-                      <input
-                        id="budget"
-                        name="budget"
-                        type="number"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.budget}
-                      />
-                    </div>
-                  </form>
-                </>
-              }
-              modalFooterBtn={
-                <>
-                  <button data-bs-dismiss="modal" className="secondary-btn">
-                    Cancel
-                  </button>
-
-                  <button
-                    type="submit"
-                    className="primary-btn"
-                    onClick={formik.handleSubmit}
-                    data-bs-dismiss="modal"
-                  >
-                    Save
-                  </button>
-                </>
-              }
-            />
-          )}
+          ) : null}
         </div>
       </div>
 

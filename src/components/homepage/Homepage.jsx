@@ -18,7 +18,7 @@ function Homepage() {
     {
       title: "Crew Flexibility",
       content:
-        "BrickX allows you to add workers when needed & remove when project demands slow down.",
+        "Peer2Fund allows you to add workers when needed & remove when project demands slow down.",
     },
     {
       title: "Dedicated Support",

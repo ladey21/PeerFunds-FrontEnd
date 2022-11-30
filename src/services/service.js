@@ -49,6 +49,13 @@ const service = {
     const res = await axios.get(`${_routes.groups}/${groupId}`);
     return res.data;
   },
+
+  applyToGroupById: async (groupId) => {
+    const res = await axios.get(
+      `${_routes.publicGroups}/${groupId}/requests/join`
+    );
+    return res.data;
+  },
 };
 
 export default service;
